@@ -1,4 +1,5 @@
-##Design & UX/UI
+Design & UX/UI
+---
 Tools: Figma, Draw.io
 
 Deliverables:
@@ -9,7 +10,7 @@ Deliverables:
 
 -Relational Schema (Normalized to 3NF)
 
-##Tech Stack
+Tech Stack
 ---
 -Frontend: Html, Css, Python
 
