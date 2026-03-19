@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PANELIST — Landing</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="auth.js"></script>
+</head>
+<body class="theme-dark">
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header__row">
+      <a class="brand" href="home.html">PANELIST</a>
+      
+      <div class="searchbar">
+        <label class="select">
+          <span class="sr-only">Filter</span>
+          <select>
+            <option>All</option>
+            <option>Manga</option>
+            <option>Manhwa</option>
+            <option>Novel</option>
+            <option>Author</option>
+            <option>Publisher</option>
+          </select>
+        </label>
+        <input class="searchbar__input" type="search" placeholder="Search…" />
+        <button class="btn btn--ghost">Search</button>
+      </div>
+
+      <nav class="topnav">
+        <a href="#">Book</a>
+        <a href="#">Author</a>
+        <a href="#">Publisher</a>
+        <a href="#">Top Rated</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <nav class="usernav">
+        <a href="login.html" class="link unauth-only">Login/Sign Up</a>
+        <!-- Only visible when logged in -->
+        <a href="profile.html" id="Profile" class="link auth-only">
+          <img id="profileImage" class="usericon avatar" src="./image/default_pfp.svg" alt="profile" />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Main Layout ===== -->
+  <main class="container auth-wrap">
+    <section class="auth-panel" role="region" aria-labelledby="login-title">
+      <h1 id="login-title" class="auth-title">Login</h1>
+
+      <form id="auth-form" class="auth-form" action="#" method="post" novalidate>
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input class="input" type="text" name="email" autocomplete="email" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">Password</span>
+          <input class="input" type="password" name="password" autocomplete="current-password" />
+        </label>
+
+        <div class="field row between">
+          <label class="check">
+            <input type="checkbox" name="remember" />
+            <span>Stay logged in?</span>
+          </label><br>
+          <a class="link-muted" href="#">Forget password?</a>
+        </div>
+
+        <button class="btn btn--primary full" type="submit">Login</button>
+
+        <div class="auth-divider" role="separator" aria-label="or">OR</div>
+
+        <a class="btn btn--ghost full" href="signup.html">Sign Up</a>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Element setup
+      const form = document.getElementById('auth-form'); // Use the new ID
+      // We'll use the submit button to show "Logging in..."
+      const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+      
+      // Determine redirection URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const nextUrl = urlParams.get('next') || 'home.html';
+      
+      // Guard clause: Check if already logged in
+      if (window.Auth && Auth.isLoggedIn()) {
+        window.location.href = nextUrl;
+        return; 
+      }
+
+      if (!form || !submitButton) return;
+
+      // 2. Event listener for form submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Stop page reload
+
+        // Form data extraction (using input names from your HTML)
+        const data = {
+          email: form.email.value, 
+          password: form.password.value 
+        };
+
+        // 🔴 Simple validation check
+        if (!data.email || !data.password) {
+          alert('Email and password are required.');
+          return;
+        }
+
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          const result = await res.json();
+
+          if (res.ok && result.success) {
+            // Success: Store credentials and redirect
+            Auth.login(result.token, result.user); 
+            window.location.href = nextUrl;
+          } else {
+            // Failure: Display error
+            alert(`Login Failed: ${result.error || 'Invalid credentials.'}`);
+          }
+        } catch (err) {
+          console.error('Network or Server Error:', err);
+          alert('Could not connect to the server.');
+        } finally {
+          // Reset button state
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+        }
+      });
+    });
+  </script>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer__row">
+      <div class="social">
+        <span>Follow Us</span>
+        <nav>
+          <a href="#" aria-label="Facebook">
+            <img class="icon" src="image/facebook.svg" alt="facebook" />
+          </a>
+          <a href="#" aria-label="Instagram">
+            <img class="icon" src="image/instagram.svg" alt="instagram" />
+          </a>
+          <a href="#" aria-label="X">
+            <img class="icon" src="image/x.svg" alt="x" />
+          </a>
+          <a href="#" aria-label="Discord">
+            <img class="icon" src="image/discord.svg" alt="discord" />
+          </a>
+        </nav>
+      </div>
+      <div class="footlinks">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

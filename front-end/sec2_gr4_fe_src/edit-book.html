@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PANELIST — Edit Book</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="auth.js"></script>
+</head>
+<body class="theme-dark">
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header__row">
+      <a class="brand" href="home.html">PANELIST</a>
+      
+      <nav class="topnav">
+        <a href="home.html">Home</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+
+      <nav class="usernav">
+        <a href="profile.html" class="link auth-only">
+          <img id="profileImage" class="usericon avatar" src="./image/default_pfp.svg" alt="profile" />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Main Layout ===== -->
+  <main class="container form-wrap">
+    <header class="form-head">
+      <h1 id="formTitle">Edit Book</h1>
+      <p class="muted">* required</p>
+    </header>
+
+    <form id="book-form" class="form">
+      <!-- left: cover -->
+      <section class="card media">
+        <div class="cover-drop">
+          <div class="cover thumb" id="coverPreview">COVER</div>
+          <input name="coverUrl" class="input" type="url" placeholder="Cover image URL" />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn--ghost">Update</button>
+          <a href="profile.html" class="btn btn--danger" id="btnCancel">Cancel</a>
+        </div>
+        <span id="book-form-status" class="muted"></span>
+      </section>
+
+      <!-- right: fields -->
+      <section class="card fields">
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Title *</span>
+            <input name="title" class="input" type="text" placeholder="Book title" required />
+          </label>
+          <label class="field">
+            <span class="label">Original Title</span>
+            <input name="og_title" class="input" type="text" placeholder="Original title" />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Author *</span>
+            <input name="author" class="input" type="text" placeholder="Author name" required />
+          </label>
+
+          <label class="field">
+            <span class="label">Publisher *</span>
+            <input name="publisher" class="input" type="text" placeholder="Publisher name" required />
+          </label>
+        </div>
+
+        <div class="grid three">
+          <label class="field">
+            <span class="label">Book type *</span>
+            <select name="type" class="select" required>
+              <option value="">Select…</option>
+              <option value="manga">manga</option>
+              <option value="manhwa">manhwa</option>
+              <option value="novel">novel</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="label">Status *</span>
+            <select name="status" class="select" required>
+              <option value="">Select…</option>
+              <option value="ongoing">ongoing</option>
+              <option value="completed">completed</option>
+              <option value="hiatus">hiatus</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="label">Content rating *</span>
+            <select name="content_rating" class="select" required>
+              <option value="">Select…</option>
+              <option value="All ages">All ages</option>
+              <option value="Teen">13+ / Teen</option>
+              <option value="Mature">18+ / Mature</option>
+            </select>
+          </label>
+        </div>
+        
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Genres *</span>
+            <input name="genres" class="input" type="text" placeholder="fantasy, action, drama" required />
+          </label>
+          
+          <label class="field">
+            <span class="label">Release Year</span>
+            <input name="release_year" class="input" type="text" placeholder="e.g., 2021" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="label">Read platform</span>
+          <input name="platforms" class="input" type="text" placeholder="Licensed platforms where the book is available" />
+        </label>
+
+        <label class="field">
+          <span class="label">Synopsis</span>
+          <textarea name="synopsis" class="textarea" rows="6" placeholder="Short summary…"></textarea>
+        </label>
+      </section>
+    </form>
+  </main>
+
+  <!-- ===== Script to handle form submission ===== -->
+  <script>
+    const form = document.getElementById('book-form');
+    const statusEl = document.getElementById('book-form-status');
+    const coverPreview = document.getElementById('coverPreview');
+    const coverUrlInput = form.coverUrl;
+
+    // Get book ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get('id');
+
+    if (!bookId) {
+      alert('No book ID provided!');
+      window.location.href = 'profile.html';
+    }
+
+    // Load book data
+    async function loadBookData() {
+      try {
+        statusEl.textContent = 'Loading book data...';
+        
+        const res = await fetch(`/api/books-find/${bookId}`);
+        const result = await res.json();
+
+        if (!res.ok || !result.success) {
+          statusEl.textContent = 'Failed to load book data';
+          return;
+        }
+
+        const book = result.data;
+
+        // Fill form with book data
+        form.title.value = book.Title || '';
+        form.og_title.value = book.OG_title || '';
+        form.author.value = book.Author_Name || '';
+        form.publisher.value = book.Publisher_Name || '';
+        form.type.value = book.Type || '';
+        form.status.value = book.Status_B || '';
+        form.content_rating.value = book.Rating || '';
+        form.genres.value = book.Genre || '';
+        form.release_year.value = book.Release_year || '';
+        form.platforms.value = book.Read_platform || '';
+        form.synopsis.value = book.Synopsis || '';
+        form.coverUrl.value = book.CoverUrl || '';
+
+        // Show cover preview
+        if (book.CoverUrl) {
+          coverPreview.style.backgroundImage = `url('${book.CoverUrl}')`;
+          coverPreview.style.backgroundSize = 'cover';
+          coverPreview.style.backgroundPosition = 'center';
+          coverPreview.textContent = '';
+        }
+
+        statusEl.textContent = '';
+
+      } catch (err) {
+        console.error('Load error:', err);
+        statusEl.textContent = 'Error loading book data';
+      }
+    }
+
+    // Preview book cover as user enters URL
+    coverUrlInput.addEventListener('input', (e) => {
+      const url = e.target.value.trim();
+      if (url) {
+        coverPreview.style.backgroundImage = `url('${url}')`;
+        coverPreview.style.backgroundSize = 'cover';
+        coverPreview.style.backgroundPosition = 'center';
+        coverPreview.textContent = '';
+      } else {
+        coverPreview.style.backgroundImage = 'none';
+        coverPreview.textContent = 'COVER';
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity(); 
+        return;
+      }
+
+      const data = {
+        title: form.title.value,
+        og_title: form.og_title.value || null,
+        type: form.type.value,
+        genres: form.genres.value,
+        synopsis: form.synopsis.value,
+        release_year: form.release_year.value || null,
+        read_platform: form.platforms.value,
+        rating: form.content_rating.value,
+        status: form.status.value,
+        authorName: form.author.value,
+        publisherName: form.publisher.value,
+        coverUrl: form.coverUrl.value || null
+      };
+
+      statusEl.textContent = 'Updating...';
+
+      try {
+        const res = await fetch(`/api/books-edit/${bookId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok || !result.success) {
+          statusEl.textContent = 'Error updating book.';
+          console.error(result);
+          return;
+        }
+
+        statusEl.textContent = 'Book updated successfully!';
+        
+        // Redirect back to profile after 1 second
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1000);
+
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Server error.';
+      }
+    });
+
+    // Load book data on page load
+    loadBookData();
+  </script>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer__row">
+      <div class="footlinks">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
