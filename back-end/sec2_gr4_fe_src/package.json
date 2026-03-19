@@ -1,0 +1,17 @@
+{
+  "name": "sec2_gr4_fe_src",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5",
+    "nodemon": "^3.1.11",
+    "open": "^11.0.0"
+  }
+}

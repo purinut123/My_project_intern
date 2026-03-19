@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PANELIST — Landing</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="auth.js"></script>
+  <script src="homeDisplay.js"></script>
+  <script src="search.js" defer></script>
+</head>
+<body class="theme-dark">
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header__row">
+      <a class="brand" href="home.html">PANELIST</a>
+      
+      <div class="searchbar">
+        <label class="select">
+          <span class="sr-only">Filter</span>
+          <select>
+            <option>All</option>
+            <option>Manga</option>
+            <option>Manhwa</option>
+            <option>Novel</option>
+          </select>
+        </label>
+        <input class="searchbar__input" type="search" placeholder="Search…" />
+        <button class="btn btn--ghost">Search</button>
+      </div>
+
+      <nav class="topnav">
+        <a href="#">Book</a>
+        <a href="#">Author</a>
+        <a href="#">Publisher</a>
+        <a href="#">Top Rated</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <nav class="usernav">
+        <a href="login.html" class="link unauth-only">Login/Sign Up</a>
+        <!-- Only visible when logged in -->
+        <a href="profile.html" id="Profile" class="link auth-only">
+          <img id="profileImage" class="usericon avatar" src="./image/default_pfp.svg" alt="profile" />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Main Layout ===== -->
+  <main class="container layout">
+    <!-- ===== Left content ===== -->
+    <section class="content">
+      <!-- ==== Section: Top 10 ==== -->
+      <section id="top10" class="section scroll-section">
+        <div class="section__head">
+          <h2 class="section__title">Top 10 On Website</h2>
+          <a class="section__more" href="#">view more</a>
+        </div>
+
+        <div class="cards-wrapper">
+          <button class="scroll-btn left" onclick="scrollList('top10','left')">‹</button>
+            <div class="cards">
+              <article class="card"><div class="thumb">BOOK 1</div></article>
+              <article class="card"><div class="thumb">BOOK 2</div></article>
+              <article class="card"><div class="thumb">BOOK 3</div></article>
+              <article class="card"><div class="thumb">BOOK 4</div></article>
+              <article class="card"><div class="thumb">BOOK 5</div></article>
+              <article class="card"><div class="thumb">BOOK 6</div></article>
+              <article class="card"><div class="thumb">BOOK 7</div></article>
+              <article class="card"><div class="thumb">BOOK 8</div></article>
+              <article class="card"><div class="thumb">BOOK 9</div></article>
+              <article class="card"><div class="thumb">BOOK 10</div></article>
+            </div>
+          <button class="scroll-btn right" onclick="scrollList('top10','right')">›</button>
+        </div>
+      </section>
+
+      <!-- ==== Section: Upcoming ==== -->
+      <section id="upcoming" class="section scroll-section">
+        <div class="section__head">
+          <h2 class="section__title">Recently Added</h2>
+          <a class="section__more" href="#">view more</a>
+        </div>
+
+        <div class="cards-wrapper">
+          <button class="scroll-btn left" onclick="scrollList('upcoming','left')">‹</button>
+            <div class="cards">
+              <article class="card"><div class="thumb">RECENTLY ADDED 1</div></article>
+              <article class="card"><div class="thumb">RECENTLY ADDED 2</div></article>
+              <article class="card"><div class="thumb">RECENTLY ADDED 3</div></article>
+              <article class="card"><div class="thumb">RECENTLY ADDED 4</div></article>
+              <article class="card"><div class="thumb">RECENTLY ADDED 5</div></article>
+              <article class="card"><div class="thumb">RECENTLY ADDED 6</div></article>
+            </div>
+          <button class="scroll-btn right" onclick="scrollList('upcoming','right')">›</button>
+        </div>
+      </section>
+
+      <!-- ==== Section: Hiatus ==== -->
+      <section id="hiatus" class="section scroll-section">
+        <div class="section__head">
+          <h2 class="section__title">On Hiatus Recently</h2>
+          <a class="section__more" href="#">view more</a>
+        </div>
+
+        <div class="cards-wrapper">
+          <button class="scroll-btn left" onclick="scrollList('hiatus','left')">‹</button>
+            <div class="cards">
+              <article class="card"><div class="thumb">HIATUS 1</div></article>
+              <article class="card"><div class="thumb">HIATUS 2</div></article>
+              <article class="card"><div class="thumb">HIATUS 3</div></article>
+              <article class="card"><div class="thumb">HIATUS 4</div></article>
+              <article class="card"><div class="thumb">HIATUS 5</div></article>
+              <article class="card"><div class="thumb">HIATUS 6</div></article>
+            </div>
+          <button class="scroll-btn right" onclick="scrollList('hiatus','right')">›</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===== Right sidebar ===== -->
+    <aside class="sidebar">
+      <section class="board">
+        <div class="board__head">
+          <h3 class="board__title">Top Manga</h3>
+          <a class="board__more" href="#">more</a>
+        </div>
+        <ol class="board__list">
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 12<br/>Rating 4.9</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 21<br/>Rating 4.7</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 8<br/>Rating 4.5</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 8<br/>Rating 4.5</div></div></li>
+        </ol>
+      </section>
+
+      <section class="board">
+        <div class="board__head">
+          <h3 class="board__title">Top Manhwa</h3>
+          <a class="board__more" href="#">more</a>
+        </div>
+        <ol class="board__list">
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Title</div><div class="mini-meta">Chap 10<br/>Rating 4.6</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Title</div><div class="mini-meta">Chap 15<br/>Rating 4.8</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Title</div><div class="mini-meta">Chap 15<br/>Rating 4.8</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Title</div><div class="mini-meta">Chap 15<br/>Rating 4.8</div></div></li>  
+        </ol>
+        </ol>
+      </section>
+
+      <section class="board">
+        <div class="board__head">
+          <h3 class="board__title">Top Novel</h3>
+          <a class="board__more" href="#">more</a>
+        </div>
+        <ol class="board__list">
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 5<br/>Rating 4.4</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 12<br/>Rating 4.9</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 21<br/>Rating 4.7</div></div></li>
+          <li class="board__item"><div class="mini-thumb"></div><div class="mini-info"><div class="mini-title">Name</div><div class="mini-meta">Chap 8<br/>Rating 4.5</div></div></li>
+        </ol>
+      </section>
+    </aside>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer__row">
+      <div class="social">
+        <span>Follow Us</span>
+        <nav>
+          <a href="#" aria-label="Facebook">
+            <img class="icon" src="image/facebook.svg" alt="facebook" />
+          </a>
+          <a href="#" aria-label="Instagram">
+            <img class="icon" src="image/instagram.svg" alt="instagram" />
+          </a>
+          <a href="#" aria-label="X">
+            <img class="icon" src="image/x.svg" alt="x" />
+          </a>
+          <a href="#" aria-label="Discord">
+            <img class="icon" src="image/discord.svg" alt="discord" />
+          </a>
+        </nav>
+      </div>
+      <div class="footlinks">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

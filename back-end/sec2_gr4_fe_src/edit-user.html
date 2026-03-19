@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PANELIST — Edit User</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="auth.js"></script>
+</head>
+<body class="theme-dark">
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header__row">
+      <a class="brand" href="home.html">PANELIST</a>
+      
+      <div class="searchbar">
+        <label class="select">
+          <span class="sr-only">Filter</span>
+          <select>
+            <option>All</option>
+            <option>Manga</option>
+            <option>Manhwa</option>
+            <option>Novel</option>
+            <option>Author</option>
+            <option>Publisher</option>
+          </select>
+        </label>
+        <input class="searchbar__input" type="search" placeholder="Search…" />
+        <button class="btn btn--ghost">Search</button>
+      </div>
+
+      <nav class="topnav">
+        <a href="#">Book</a>
+        <a href="#">Author</a>
+        <a href="#">Publisher</a>
+        <a href="#">Top Rated</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <nav class="usernav">
+        <a href="login.html" class="link unauth-only">Login/Sign Up</a>
+        <!-- Only visible when logged in -->
+        <a href="profile.html" id="Profile" class="link auth-only">
+          <img id="profileImage" class="usericon avatar" src="./image/default_pfp.svg" alt="profile" />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Main Layout ===== -->
+  <main class="container form-wrap">
+    <header class="form-head">
+      <h1 id="formTitle">Edit User</h1>
+      <p class="muted">* required</p>
+    </header>
+
+    <form id="user-form" class="form" novalidate>
+      <!-- left: pfp -->
+      <section class="card media">
+        <div class="pfp-drop">
+          <div class="pfp thumb" id="pfpPreview">PROFILE</div>
+          <input id="pfpUrl" class="input" type="url" placeholder="Profile image URL" />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn--ghost">Update</button>
+          <a href="profile.html" class="btn btn--danger" id="btnCancel">Cancel</a>
+        </div>
+        <span id="user-form-status" class="muted"></span>
+      </section>
+
+      <!-- right: fields -->
+      <section class="card fields">
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Name</span>
+            <input name="name" class="input" type="text" placeholder="User name" />
+          </label>
+          <label class="field">
+            <span class="label">Surname</span>
+            <input name="surname" class="input" type="text" placeholder="User surname" />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Username *</span>
+            <input name="username" class="input" type="text" placeholder="User username" required />
+          </label>
+
+          <label class="field">
+            <span class="label">Status *</span>
+            <select name="status" class="select" required>
+              <option value="">Select…</option>
+              <option value="Active">Active</option>
+              <option value="Suspended">Suspended</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid three">
+          <label class="field">
+            <span class="label">Email *</span>
+            <input name="email" class="input" type="email" placeholder="User email" required />
+          </label>
+
+          <label class="field">
+            <span class="label">Password<span class="edit-warn">Only fill if changing password</span></span>
+            <input name="password" class="input" type="password" placeholder="Leave blank to keep current" />
+          </label>
+
+          <label class="field">
+            <span class="label">Role *</span>
+            <select name="role" class="select" required>
+              <option value="">Select…</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label class="field">
+            <span class="label">Gender</span>
+            <select name="gender" class="select">
+              <option value="">Select…</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </label>
+
+          <label class="field">     
+            <span class="label">Birthdate</span>       
+            <input name="birthdate" class="input" type="date">
+          </label>
+        </div>
+
+        <div id="adminFields" class="grid two" style="display: none;">
+          <label class="field">
+            <span class="label">Phone Number *</span>
+            <input id="telnoField" name="telno" class="input" type="tel" placeholder="Admin-only Tel." />
+          </label>
+
+          <label class="field">
+            <span class="label">Location *</span>
+            <input id="locationField" name="location" class="input" type="text" placeholder="Admin-only location" />
+          </label>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <!-- ===== Script to handle form submission ===== -->
+  <script>
+    const form = document.getElementById('user-form');
+    const pfpPreview = document.getElementById('pfpPreview');
+    const statusEl = document.getElementById('user-form-status');
+    const pfpUrlInput = document.getElementById('pfpUrl');
+    const roleSelect = form.role;
+    const adminFields = document.getElementById('adminFields');
+    const telnoField = document.getElementById('telnoField');
+    const locationField = document.getElementById('locationField');
+
+    // Get user ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+
+    if (!userId) {
+      alert('No user ID provided!');
+      window.location.href = 'profile.html';
+    }
+
+    // Auth guard
+    if (window.Auth) {
+      Auth.requireAuth();
+    }
+
+    // Preview profile picture as user enters URL
+    pfpUrlInput.addEventListener('input', (e) => {
+      const url = e.target.value.trim();
+      if (url) {
+        pfpPreview.style.backgroundImage = `url('${url}')`;
+        pfpPreview.style.backgroundSize = 'cover';
+        pfpPreview.style.backgroundPosition = 'center';
+        pfpPreview.textContent = '';
+      } else {
+        pfpPreview.style.backgroundImage = 'none';
+        pfpPreview.textContent = 'PROFILE';
+      }
+    });
+
+    // Show/hide admin fields based on role
+    roleSelect.addEventListener('change', (e) => {
+      const isAdmin = e.target.value === 'admin';
+      adminFields.style.display = isAdmin ? '' : 'none';
+      telnoField.required = isAdmin;
+      locationField.required = isAdmin;
+      
+      if (!isAdmin) {
+        telnoField.value = '';
+        locationField.value = '';
+      }
+    });
+
+    // Load user data
+    async function loadUserData() {
+      try {
+        statusEl.textContent = 'Loading user data...';
+        
+        const res = await fetch(`/api/user-find/${userId}`);
+        const result = await res.json();
+
+        if (!res.ok || !result.success) {
+          statusEl.textContent = 'Failed to load user data';
+          return;
+        }
+
+        const user = result.data;
+
+        // Fill form with user data
+        form.name.value = user.Name || '';
+        form.surname.value = user.Surname || '';
+        form.username.value = user.Username || '';
+        form.email.value = user.Email || '';
+        form.status.value = user.Status_A || '';
+        form.role.value = user.Role || '';
+        form.gender.value = user.Gender || '';
+        form.birthdate.value = user.Birthdate || '';
+        pfpUrlInput.value = user.ProfileUrl || '';
+
+        // If admin, show admin fields and fill them
+        if (user.Role === 'admin') {
+          adminFields.style.display = '';
+          telnoField.value = user.Telno || '';
+          locationField.value = user.Location || '';
+        }
+
+        // Show profile preview
+        if (user.ProfileUrl) {
+          pfpPreview.style.backgroundImage = `url('${user.ProfileUrl}')`;
+          pfpPreview.style.backgroundSize = 'cover';
+          pfpPreview.style.backgroundPosition = 'center';
+          pfpPreview.textContent = '';
+        }
+
+        statusEl.textContent = '';
+
+      } catch (err) {
+        console.error('Load error:', err);
+        statusEl.textContent = 'Error loading user data';
+      }
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = {
+        name: form.name.value,
+        surname: form.surname.value,
+        username: form.username.value,
+        email: form.email.value,
+        role: form.role.value,
+        status: form.status.value,
+        gender: form.gender.value || null,
+        birthdate: form.birthdate.value || null,
+        telno: form.role.value === 'admin' ? form.telno.value : null,
+        location: form.role.value === 'admin' ? form.location.value : null,
+        profileUrl: pfpUrlInput.value || null
+      };
+
+      // Only include password if user entered one
+      if (form.password.value) {
+        data.password = form.password.value;
+      }
+
+      statusEl.textContent = 'Updating...';
+
+      try {
+        const res = await fetch(`/api/user-edit/${userId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok || !result.success) {
+          statusEl.textContent = 'Error updating user.';
+          console.error(result);
+          return;
+        }
+
+        statusEl.textContent = 'User updated successfully!';
+        
+        // Redirect back to profile after 1 second
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1000);
+
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Server error.';
+      }
+    });
+
+    // Load user data on page load
+    loadUserData();
+  </script>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer__row">
+      <div class="social">
+        <span>Follow Us</span>
+        <nav>
+          <a href="#" aria-label="Facebook">
+            <img class="icon" src="image/facebook.svg" alt="facebook" />
+          </a>
+          <a href="#" aria-label="Instagram">
+            <img class="icon" src="image/instagram.svg" alt="instagram" />
+          </a>
+          <a href="#" aria-label="X">
+            <img class="icon" src="image/x.svg" alt="x" />
+          </a>
+          <a href="#" aria-label="Discord">
+            <img class="icon" src="image/discord.svg" alt="discord" />
+          </a>
+        </nav>
+      </div>
+      <div class="footlinks">
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
