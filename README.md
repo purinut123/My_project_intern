@@ -1,2 +1,17 @@
-Design & UX/UI: Figma Draw.io (User Flow, Wireframe, EER Diagram and converted it into a Relational Schema in Third Normal Form (3NF))
-Frontend & Backend & Database: Node.js (Express) & MySQL
+Design & UX/UI
+Tools: Figma, Draw.io
+
+Deliverables:
+
+User Flow & Wireframe
+
+EER Diagram
+
+Relational Schema (Normalized to 3NF)
+
+Tech Stack
+Frontend: Html, Css, Python
+
+Backend: Node.js (Express)
+
+Database: MySQL
