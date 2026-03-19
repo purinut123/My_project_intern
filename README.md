@@ -1,17 +1,17 @@
-Design & UX/UI
+#Design & UX/UI
 Tools: Figma, Draw.io
 
 Deliverables:
 
-User Flow & Wireframe
+-User Flow & Wireframe
 
-EER Diagram
+-EER Diagram
 
-Relational Schema (Normalized to 3NF)
+-Relational Schema (Normalized to 3NF)
 
-Tech Stack
-Frontend: Html, Css, Python
+#Tech Stack
+-Frontend: Html, Css, Python
 
-Backend: Node.js (Express)
+-Backend: Node.js (Express)
 
-Database: MySQL
+-Database: MySQL
