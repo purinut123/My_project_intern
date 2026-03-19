@@ -12,7 +12,7 @@ Deliverables:
 
 Tech Stack
 ---
--Frontend: Html, Css, Python
+-Frontend: Html, Css, 
 
 -Backend: Node.js (Express)
 
