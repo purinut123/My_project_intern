@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purinut — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-logo">PURINUT KHIEWSANG</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+      <div class="toggle-wrap">
+        <span class="toggle-icon" id="toggle-icon">☀️</span>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="home">
+    <div class="hero-tag">developer</div>
+    <h1>PORTFOLIO<br><span>Purinut for intern</span></h1>
+    <p class="hero-desc">
+      Frontend Developer | UI & UX
+    </p>
+    <div class="btn-group">
+      <a href="#projects" class="btn btn-primary">View projects</a>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="section-label">About me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hi, I'm Purinut, a second-year ICT student with an interest in data and business analytics.
+          I enjoy building front-end web applications with figma prototype
+          through my academic projects
+        </p>
+      </div>
+      <div>
+        <!-- แก้ข้อมูลตรงนี้ -->
+        <div class="info-row"><span>Location</span><span>Bangkok, Thailand</span></div>
+        <div class="info-row"><span>Available</span><span>Intern</span></div>
+        <div class="info-row"><span>Languages</span><span>TH / EN</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Projects ── -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <div class="projects-grid">
+
+      <!-- Project 1 — แก้ข้อมูลและ GitHub URL -->
+      <div class="project-item" id="p1">
+        <div class="project-header" onclick="toggle('p1')">
+          <div style="flex: 1;">
+            <div class="project-number">01</div>
+            <div class="project-title">Project Web Application</div>
+            <p class="project-desc">A full-stack web application designed for manga enthusiasts to explore and enjoy
+              their favorite comics</p>
+            <div class="tag-list">
+              <span class="tag">Express</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </div>
+          <div class="project-toggle">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="project-detail">
+          <div class="detail-inner">
+            <div>
+              <div class="detail-label">Overview</div>
+              <p class="detail-text">Panelist is a web platform that gathers feedback and articles from writers,
+                creating a small community where users can discuss and share opinions about the comics they have read.
+              </p>
+            </div>
+            <div>
+              <div class="detail-label">My role</div>
+              <p class="detail-text">Designed the database to support web application functionality<br>
+                Created wireframes either as detailed mockups web pages for initial planning<br>
+                Developed web pages using HTML, CSS (Front-End)</p>
+            </div>
+            <a href="https://github.com/purinut123/My_project_intern/tree/main" target="_blank" rel="noopener"
+              class="detail-link">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-item" id="p2">
+        <div class="project-header" onclick="toggle('p2')">
+          <div style="flex: 1;">
+            <div class="project-number">02</div>
+            <div class="project-title">Project Mobile Application</div>
+            <p class="project-desc">A mobile application designed to calculate electricity costs for household
+              appliances</p>
+            <div class="tag-list">
+              <span class="tag">Flutter</span>
+            </div>
+          </div>
+          <div class="project-toggle">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="project-detail">
+          <div class="detail-inner">
+            <div>
+              <div class="detail-label">Overview</div>
+              <p class="detail-text">A mobile application that calculates electricity usage and costs for household
+                appliances, helping users manage energy consumption.</p>
+            </div>
+            <div>
+              <div class="detail-label">My role</div>
+              <p class="detail-text">Created wireframes either as detailed mockups web pages for initial planning using
+                Figma<br>
+                To do...</p>
+            </div>
+            <a href="https://github.com/purinut123/My_project_intern/tree/main" target="_blank" rel="noopener"
+              class="detail-link">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-item" id="p3">
+        <div class="project-header" onclick="toggle('p3')">
+          <div style="flex: 1;">
+            <div class="project-number">03</div>
+            <div class="project-title">UX|UI Prototype</div>
+            <p class="project-desc">A REST API service powering mobile applications with authentication, caching, and
+              rate limiting.</p>
+            <div class="tag-list">
+              <span class="tag">Figma</span>
+            </div>
+          </div>
+          <div class="project-toggle">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="project-detail">
+          <div class="detail-inner">
+            <div>
+              <div class="detail-label">Overview</div>
+              <p class="detail-text">High-performance REST API with JWT auth, Redis caching, and rate limiting on
+                Docker.</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a href="https://github.com/purinut123/My_project_intern" target="_blank" rel="noopener"
+                class="detail-link">GitHub ↗</a>
+              <a href="https://www.figma.com/proto/mxkzuwxgqJYS7WQxva6p6b/Untitled?node-id=0-1&t=UqVOnuNw6dkrmEXI-1"
+                class="detail-link">Web ↗</a>
+              <a href="https://www.figma.com/proto/qrZyvp12Q5TmVTqhKir6EL/PikaWatt?node-id=0-1&t=mcm4nLCvqn4tleFS-1"
+                class="detail-link">Mobile ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+
+      <div class="contact-left">
+        <p>
+          Have a project in mind or just want to chat? Feel free to reach out —
+          I'm always open to interesting conversations.
+        </p>
+        <!-- แก้ href และ label เป็นข้อมูลจริง -->
+        <div class="contact-links">
+          <a href="mailto:Purinut.khi@student.mahidol.ac.th" class="contact-link">
+            <span>Email</span>
+            <span class="contact-link-label">Purinut.khi@student.mahidol.ac.th</span>
+          </a>
+          <a href="https://github.com/purinut123/My_project_intern" target="_blank" rel="noopener" class="contact-link">
+            <span>GitHub</span>
+            <span class="contact-link-label">github.com/purinut123</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- เชื่อมกับ Formspree — ข้อความจะส่งมาที่ email ของคุณ -->
+      <form action="https://formspree.io/f/mkoqypop" method="POST">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Send message
+        </button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    Designed &amp; built by <span>OPTRA</span> — 2026
+  </footer>
+
+  <script>
+    // ── Dark mode toggle ──
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      document.getElementById('toggle-icon').textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    // โหลด theme ที่บันทึกไว้ หรือใช้ system preference
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.body.classList.add('dark');
+      document.getElementById('toggle-icon').textContent = '🌙';
+    }
+
+    // ── Smooth scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ── Project expand/collapse ──
+    function toggle(id) {
+      const item = document.getElementById(id);
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.project-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+
+</html>
